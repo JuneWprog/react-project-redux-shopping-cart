@@ -1,35 +1,21 @@
-import React from 'react'
-import {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
+
+import { useSelector, useDispatch } from 'react-redux';
 // import { Circles } from "react-loader-spinner";
 import ProductTile from "../components/product-tile";
+import { fetchData } from '../store/slices/products-slice'
 
 const Home = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
 
-
-    async function fetchProducts() {
-        setLoading(true);
-        try{
-            const response = await fetch("https://fakestoreapi.com/products");
-            const data = await response.json();
-            if(data && data.length > 0){
-                setProducts(data);
-                setLoading(false);
-            }
-
-        }
-        catch(error){
-            console.log(error);
-            setLoading(false);
-        }
-
-    }
-
+    const dispatch = useDispatch();
+    const { products, status, error } = useSelector((state) => state.products);
     useEffect(() => {
-        fetchProducts();
-    }, []); //call only once
+        dispatch(fetchData());
+      }, [dispatch]);
 
+      if (status === 'loading') return <p>Loading...</p>;
+      if (status === 'failed') return <p>Error: {error}</p>;
+ 
 
   return (
     <div>
