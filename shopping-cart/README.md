@@ -54,6 +54,7 @@ Used with useSelector() in React components.
 4️⃣ Store 存储新的状态。
 5️⃣ React 组件通过 useSelector 监听状态变化，并重新渲染 UI。
 
+
 Improvements:
 1️⃣ Use createAsyncThunk producer to fetch products data from API.
 2️⃣ Add orderAmount for cart items and buttons to control amount during order.
